@@ -1,15 +1,13 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const { error } = require("console");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
-const localStrategy = require("passport-local");
+const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 
@@ -39,13 +37,13 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 
 const sessionOptions = {
   secret: "mysecretcode",
   resave: false,
-  saveUninitionalized: true,
+  saveUninitialized: true,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,

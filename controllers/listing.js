@@ -9,19 +9,25 @@ module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");
 };
 
-module.exports.showListing =
-async (req, res) => {
+module.exports.showListing = async (req, res) => {
   try {
     const { id } = req.params;
     const listing = await Listing.findById(id)
-    .populate("reviews").populate("owner");
-    res.render("/show", { listing });
+      .populate("owner")
+      .populate({
+        path: "reviews",
+        populate: { path: "author" } // optional, if reviews have authors
+      });
+
+    if (!listing) {
+      req.flash("error", "Listing does not exist");
+      return res.redirect("/listings");
+    }
+
+    res.render("listings/show", { listing });
   } catch (err) {
     console.error("Error fetching listing:", err);
     res.status(500).send("Internal Server Error");
-  } if (!listing) {
-    req.flash("error", "listing does not exist");
-    res.redirect("/listing");
   }
 };
 
@@ -42,7 +48,7 @@ async (req, res) => {
   } catch (err) {
     console.error("Error loading edit form:", err);
     res.status(500).send("Internal Server Error");
-  }  }; if (!listing) {
+  }  }; if (!Listing) {
     req.flash("error", "listing does not exist");
     res.redirect("/listing");
   };
