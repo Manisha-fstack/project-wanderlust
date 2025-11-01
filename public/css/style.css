@@ -13,12 +13,12 @@ body {
 
 .navbar {
     height: 5rem;
-    background-color: white;
+    background-color: rgb(233, 242, 232);
 }
 
 .navbar-brand i {
-    color: #ff5533;
-    font-size: 2rem;
+    color: #15c0a3;
+    font-size: 1.5rem;
 }
 
 .navbar-nav .nav-link {
@@ -41,7 +41,7 @@ body {
 
 .f-info-links a:hover {
     text-decoration: color;
-    color: #ff5533;
+    color:#2e9c79;
     text-decoration: underline;
 }
 
@@ -75,27 +75,55 @@ body {
 /*cards*/
 
 .card {
-    border: none !important;
-    margin-bottom: 2rem;
+ 
+  width: 250px;    
+  background: white;
+  border: none !important;
+
 }
 
 .card-img-top {
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
-
+    border-radius: 25px !important;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    
 }
 
-.card-body {
+.card-container {
     text-decoration: none !important;
-    padding: 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;         /* space between cards */
+  padding: 10px;
+  scroll-behavior: smooth; 
+  overflow: auto;     
+
   
 }
 
-.card-text p {
-    font-weight: 400;
+a.listing-title {
+  text-decoration: none;
+  color: inherit;
+  font-size: smaller;
+  text-align: left;
 }
 
+a.listing-title:hover {
+  text-decoration: none;
+}
+.card-text h5{
+    color: black !important;
+    text-decoration: none !important;
+    font-weight: 300 !important;
+}
+.card-text p{
+    color: black !important;
+    text-decoration: none !important;
+    font-weight: 300 !important;
+}
 .listing-click {
     text-decoration: none !important;
     color: #222222;
@@ -107,7 +135,32 @@ body {
     height: 30vh;
 }
 
-.btns {
+.buttons {
     display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    
+}
+.show-btns {
+    display: flex;
+    flex-direction: row;
     height: 2.4rem;
+    background-color: black;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    padding: 1rem 1rem 1rem 1rem;
+    align-items: center;
+    border: none;
+    width: 6rem;
+}
+
+.show-btns a {
+    text-decoration: none;
+    color: white;
+}
+
+#map {
+    height: 380px;
+    width: 60%;
 }

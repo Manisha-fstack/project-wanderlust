@@ -7,11 +7,11 @@ const reviewController =
  require("../controllers/review.js");
 
 
+
 //validate review 
 const validateReview = (req, res, next) => {
   let { error } = reviewSchema.validate(req.body);
-
-if (error){
+  if (error){
   let errMsg = error.details.map((el) =>
      el.message).join(",");
   throw new ExpressError(errMsg, 400);

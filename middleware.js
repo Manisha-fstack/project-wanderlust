@@ -4,6 +4,7 @@ const Listing = require("./models/listing");
 const { default: mongoose } = require("mongoose");
 const Review = require("./models/review.js");
 
+
 module.exports.isLoggedIn = (req, res, next) => {
   if(!req.isAuthenticated()) {
     req.flash("error", "you must be logged in to create listing!");
@@ -31,7 +32,7 @@ module.exports.isOwner = async (req, res, next ) => {
 };
 
 module.exports.isReviewAuthor = async (req, res, next) => {
-  const { id, reviewId } = req.params;
+  const reviewId = req.params.reviewId.trim();
   const review = await Review.findById(reviewId);
   if (!review.author.equals(req.user._id)) {
     req.flash("error", "You do not have permission to do that!");
@@ -50,4 +51,3 @@ module.exports.validateReview = (req, res, next) => {
   }
 };
 
-// middleware.js ends here

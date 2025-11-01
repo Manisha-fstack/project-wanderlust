@@ -4,7 +4,8 @@ const { listingSchema } = require("../schemas.js");
 const {isLoggedIn, isOwner} = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const { storage } = require('../cloudConfig.js');
+const upload = multer({ storage });
 const ExpressError = require("../utils/ExpressError");
 const wrapAsync = require("../utils/wrapAsync");
 
@@ -25,8 +26,9 @@ if (error){
 router
   .route("/")
   .get(wrapAsync(listingController.index))
-  .post(  isLoggedIn,
-     upload.single('listing[image]'),
+  .post(  
+    isLoggedIn,
+     upload.single("listing[image]"),
      validateListing,
      wrapAsync(listingController.createListing)
    );
@@ -42,7 +44,7 @@ router
  .put(
    isLoggedIn,
    isOwner,
-   upload.single('listing[image]'),
+   upload.single("listing[image]"),
    validateListing,
   wrapAsync(listingController.updateListing))
  .delete(isLoggedIn
@@ -54,5 +56,8 @@ router
 router.get("/:id/edit", isLoggedIn
   , isOwner , wrapAsync(listingController.renderEditForm)
 );
+
+// search listing 
+
 
 module.exports = router;
