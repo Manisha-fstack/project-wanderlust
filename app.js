@@ -3,7 +3,6 @@ if(process.env.NODE_ENV != "production") {
 }
 
 
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -24,18 +23,38 @@ const userRouter = require("./routes/user.js");
 
 const MONGO_DB_URL = process.env.ATLAS_DB_URL;
 
-// MongoDB connection
-main()
-  .then(() => {
-    console.log("Connected to DB");
-  })
-  .catch((err) => {
-    console.log("DB connection error:", err);
-  });
+if (!MONGO_DB_URL) {
+  console.error("❌ ERROR: ATLAS_DB_URL is not set in your .env file!");
+  console.error("Please create a .env file with your MongoDB connection string.");
+  process.exit(1);
+}
 
 async function main() {
-  await mongoose.connect(MONGO_DB_URL);
+  await mongoose.connect(MONGO_DB_URL, {
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 45000,
+  });
 }
+
+// Start server only after successful DB connection
+main()
+  .then(() => {
+    console.log("✅ Connected to MongoDB successfully!");
+    app.listen(8080, () => {
+      console.log("✅ Server is listening on port 8080");
+    });
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:");
+    console.error(err.message);
+    console.error("\n💡 Troubleshooting tips:");
+    console.error("1. Check if your .env file exists and contains ATLAS_DB_URL");
+    console.error("2. Verify your MongoDB connection string is correct");
+    console.error("3. If using MongoDB Atlas, check your network access settings");
+    console.error("4. If using local MongoDB, ensure it's running: brew services start mongodb-community");
+    console.error("5. Check that your .env file is in the project root directory");
+    process.exit(1);
+  });
 
 // App configuration
 app.set("view engine", "ejs");
@@ -53,8 +72,8 @@ const store = MongoStore.create({
   touchAfter: 24 * 3600,
 });
 
-store.on("error", () => {
-  console.log("SESSION STORE ERROR", err);
+store.on("error", (err) => {
+  console.error("❌ SESSION STORE ERROR:", err);
 });
 
 //create session
@@ -90,12 +109,6 @@ app.use((req, res, next) => {
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 app.use("/", listingRouter);
-
-
-
-// Start server
-app.listen(8080, () => {
-  console.log("Server is listening on port 8080");
-});
 

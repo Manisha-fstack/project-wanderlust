@@ -15,7 +15,7 @@ async(req, res) => {
         if(err) {
             return next (err);
         }
-    req.flash("success", "welcome to Wanderlust!");
+    req.flash("success", "welcome to Saadhan!");
     res.redirect("/listings");
 });
     }

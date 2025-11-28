@@ -1,115 +1,50 @@
-<style>
-
-   .search-bar {
-  display: flex;
-  align-items: center;
-  background: white;
-  border-radius: 50px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding: 10px 15px;
-  max-width: 800px;
-  margin: 20px auto;
-  justify-content: center; 
-}
-
-.search-section {
-  display: flex;
-  flex-direction: column;
-  padding: 0 15px;
-  font-size: 14px;
-}
-
-.search-section strong {
-  font-size: 12px;
-  font-weight: 600;
-  color: #333;
-}
-
-.search-section span {
-  font-size: 14px;
-  color: #666;
-}
-
-.divider {
-  width: 1px;
-  height: 30px;
-  background: #ddd;
-}
-
-.search-btn {
-  margin-left: auto;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: #1c8076;
-  color: white;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-.search-box {
-    appearance: none;
-    border: white;
-  }
-
-
-
-</style>
-
-<nav 
-class="navbar navbar-expand-md bg-body-light
- border-bottom sticky-top " style="background-color: #eff6eb;">
+<nav class="navbar navbar-expand-md border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #666;">
-      Saadhan <i class="fa-solid fa-car-side"></i></a>
-
+    <a class="navbar-brand" href="/listings">
+      Saadhan <i class="fa-solid fa-car-side"></i>
+    </a>
+    
     <button class="navbar-toggler" type="button"
-     data-bs-toggle="collapse"
-     data-bs-target="#navbarNavAltMarkup"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup" 
-     aria-expanded="false"
+      aria-expanded="false"
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-
-    <!-- <div class="collapse navbar-collapse" 
-    id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings"><b>Homes</b></a>
     
-       
-      </div> -->
- <form class="ms-auto" action="/listings" method="get">
-  <div class="search-bar">
-  <div class="search-section">
-    <strong>Find the Vehicle for you</strong>
-    
-    <input class="search-box" type="text" placeholder="Search type, location..."></input>
-  </div>
-  <button class="search-btn" role="search">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-</div></form>
-
-       <div class="navbar-nav ms-auto">
-            <a class="nav-link"
-         href="/listings/new">Become a host</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <!-- Search Bar in Center -->
+      <form class="mx-auto" action="/listings" method="get">
+        <div class="search-bar">
+          <div class="search-section">
+            <input class="search-box" type="text" name="search" placeholder="Search vehicle, listing, location...">
+          </div>
+          <button class="search-btn" type="submit" role="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </form>
+      
+      <!-- Right-aligned Nav Links -->
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">
+          <i class="fa-solid fa-plus me-1"></i> Create Listing
+        </a>
         <% if(!currUser) { %>
-        <a class="nav-link" id="home" href="/signup"><b>Sign up</b></a> 
-        <a class="nav-link" href="/login"><b>Login</b></a>
+          <a class="nav-link" href="/signup">
+            <b>Sign Up</b>
+          </a> 
+          <a class="nav-link" href="/login">
+            <b>Login</b>
+          </a>
         <% } %>
-
         <% if(currUser) { %>
-        <a class="nav-link" href="/logout">Logout</a>
+          <a class="nav-link" href="/logout">
+            <i class="fa-solid fa-sign-out-alt me-1"></i> Logout
+          </a>
         <% } %>
-       
       </div>
-
     </div>
   </div>
 </nav>

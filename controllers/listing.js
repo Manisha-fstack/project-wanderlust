@@ -59,20 +59,20 @@ async (req, res) => {
   };
 
 
-module.exports.updateListing =
- async (req, res) => {
-   let { id } = req.params;
-   let Listing = await Listing.findByIdAndUpdate
-   (id, { ...req.body.listing });
-   if(typeof req.file !== 'undefined'){
-   let url = req.file.path;
-   let filename = req.file.filename;
-   Listing.image = {url, filename};
-   await Listing.save();
-   }
-   req.flash("success", "Listing Updated!");
+module.exports.updateListing = async (req, res) => {
+  const { id } = req.params;
+  const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true, runValidators: true });
+  
+  if (req.file) {
+    const url = req.file.path;
+    const filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+  }
+  
+  req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${id}`);
-  };
+};
 
 module.exports.destroyListing =
 async (req, res) => {
