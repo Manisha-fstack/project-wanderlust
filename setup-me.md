@@ -1,8 +1,8 @@
-# Project Wanderlust - Setup Guide & Walkthrough
+# Project Saadhan - Setup Guide & Walkthrough
 
 ## 📋 Project Overview
 
-**Wanderlust** is a full-stack web application similar to Airbnb, built with Node.js and Express. It's a platform where users can browse, create, edit, and manage property listings with features like:
+**Saadhan** is a full-stack E Commerce web application, built with Node.js and Express. It's a platform where users can browse, create, edit, and manage property listings with features like:
 
 - User authentication (login/signup)
 - CRUD operations for property listings
